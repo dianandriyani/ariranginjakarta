@@ -1,0 +1,20 @@
+{
+	"name": "ariranginjakarta",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@nuxt/ui": "^4.8.0",
+		"@pinia/nuxt": "^0.11.3",
+		"pinia-plugin-persistedstate": "^4.7.1"
+	},
+	"devDependencies": {
+		"nuxt": "^4.4.6"
+	}
+}
