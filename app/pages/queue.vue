@@ -49,7 +49,7 @@ const progress = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+  <div class="min-h-screen bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
     <UContainer class="max-w-3xl py-16 md:py-24">
       <div class="space-y-8">
         <!-- header -->
@@ -61,6 +61,12 @@ const progress = computed(() => {
 
             <p class="text-slate-400 text-sm md:text-base max-w-lg mx-auto">High demand is expected. Please keep this page open while we reserve your access to ticket selection.</p>
           </div>
+
+          <div class="rounded-2xl bg-emerald-500/10 border border-emerald-500/20 px-5 py-4 text-center">
+            <p class="text-sm font-medium text-emerald-300">SALE IN PROGRESS</p>
+
+            <p class="text-xs text-slate-300 mt-1">This ticket sale session remains open for 30 minutes from the scheduled start time.</p>
+          </div>
         </div>
 
         <!-- queue card -->
@@ -70,7 +76,7 @@ const progress = computed(() => {
             <div class="text-center space-y-3">
               <p class="text-sm uppercase tracking-widest text-slate-400">Your Queue Number</p>
 
-              <div class="text-5xl md:text-7xl font-bold tracking-tight">#{{ queue.queueNumber }}</div>
+              <div class="text-5xl md:text-7xl font-bold tracking-tight">#{{ queue.position }}</div>
             </div>
 
             <!-- progress -->
@@ -84,16 +90,8 @@ const progress = computed(() => {
             </div>
 
             <!-- stats -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
-                <p class="text-sm text-slate-400 mb-2">Current Position</p>
-
-                <p class="text-3xl font-semibold">
-                  {{ queue.position }}
-                </p>
-              </div>
-
-              <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <div class="grid grid-cols-1 gap-4">
+              <div class="rounded-2xl text-center bg-white/5 border border-white/10 p-6">
                 <p class="text-sm text-slate-400 mb-2">Estimated Wait</p>
 
                 <p class="text-3xl font-semibold">

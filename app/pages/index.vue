@@ -86,7 +86,10 @@ function handleJoin() {
             <div class="space-y-2">
               <h2 class="text-2xl font-semibold">Simulation Schedule</h2>
 
-              <p class="text-sm text-slate-400">Waiting room opens 1 hour before each scheduled session (UTC+7).</p>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                Waiting room opens 1 hour before each session. Each sale session remains open for
+                <span class="text-white font-medium"> 30 minutes </span>. All times are shown in WIB (UTC+7).
+              </p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">

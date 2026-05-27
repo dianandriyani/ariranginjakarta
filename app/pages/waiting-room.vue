@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getJakartaDate, getJakartaHour } from "~/utils/time";
+
 const route = useRoute();
 
 const isDevBypass = computed(() => route.query.dev === "1");
@@ -8,15 +10,7 @@ const scheduleHours = [0, 3, 6, 9, 12, 15, 18, 21];
 const countdown = ref(0);
 const isOpen = ref(false);
 
-function getJakartaDate() {
-  return new Date(
-    new Date().toLocaleString("en-US", {
-      timeZone: "Asia/Jakarta",
-    }),
-  );
-}
-
-function getCurrentSession() {
+function getSessionState() {
   const now = getJakartaDate();
 
   for (const hour of scheduleHours) {
@@ -24,12 +18,33 @@ function getCurrentSession() {
 
     saleTime.setHours(hour, 0, 0, 0);
 
+    // midnight fix
+    if (hour === 0 && now.getHours() >= 23) {
+      saleTime.setDate(saleTime.getDate() + 1);
+    }
+
     const openTime = new Date(saleTime);
 
-    openTime.setHours(hour - 1, 0, 0, 0);
+    openTime.setHours(saleTime.getHours() - 1);
 
+    const saleEnd = new Date(saleTime);
+
+    saleEnd.setMinutes(45);
+
+    // waiting room
     if (now >= openTime && now < saleTime) {
-      return saleTime;
+      return {
+        type: "waiting",
+        saleTime,
+      };
+    }
+
+    // sale live
+    if (now >= saleTime && now < saleEnd) {
+      return {
+        type: "live",
+        saleTime,
+      };
     }
   }
 
@@ -42,10 +57,16 @@ onMounted(() => {
     return;
   }
 
-  const session = getCurrentSession();
+  const session = getSessionState();
 
   if (!session) {
     isOpen.value = false;
+    return;
+  }
+
+  // sale sedang berlangsung
+  if (session.type === "live") {
+    navigateTo("/queue");
     return;
   }
 
@@ -54,7 +75,7 @@ onMounted(() => {
   const timer = setInterval(() => {
     const now = getJakartaDate();
 
-    countdown.value = Math.max(0, Math.floor((session.getTime() - now.getTime()) / 1000));
+    countdown.value = Math.max(0, Math.floor((session.saleTime.getTime() - now.getTime()) / 1000));
 
     if (countdown.value <= 0) {
       clearInterval(timer);

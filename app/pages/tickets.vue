@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { isSaleLive } from "~/utils/sale-session";
+
 const route = useRoute();
 const ticketStore = useTicketStore();
 const queue = useQueueStore();
@@ -12,9 +14,13 @@ const loadingSection = ref<string | null>(null);
 const soldOutModal = ref(false);
 
 onMounted(() => {
-  // developer bypass
   if (isDevBypass.value) {
     startSimulation();
+    return;
+  }
+
+  if (!isSaleLive()) {
+    navigateTo("/waiting-room");
     return;
   }
 
@@ -108,6 +114,12 @@ async function selectTicket(section: any) {
               <h1 class="text-4xl md:text-5xl font-bold">Select Your Ticket</h1>
 
               <p class="text-slate-400 mt-2">Choose your preferred section before tickets sell out.</p>
+            </div>
+
+            <div class="rounded-2xl bg-emerald-500/10 border border-emerald-500/20 px-5 py-4 text-center">
+              <p class="text-sm font-medium text-emerald-300">SALE IN PROGRESS</p>
+
+              <p class="text-xs text-slate-300 mt-1">This ticket sale session remains open for 30 minutes from the scheduled start time.</p>
             </div>
           </div>
 
