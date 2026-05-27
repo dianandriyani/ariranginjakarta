@@ -20,6 +20,7 @@ onMounted(() => {
 
       sessionStorage.setItem("queue-access", "granted");
 
+      sessionStorage.setItem("ticket-session", "active");
       navigateTo(isDevBypass.value ? "/tickets?dev=1" : "/tickets");
 
       return;
