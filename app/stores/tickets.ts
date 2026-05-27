@@ -51,11 +51,31 @@ export const useTicketStore = defineStore("tickets", () => {
       sections.value.forEach((section) => {
         if (section.stock <= 0) return;
 
-        const decrease = Math.floor(Math.random() * 8) + 1;
+        let decrease = 0;
+
+        // VIP lebih brutal
+        if (section.name === "VIP PACKAGE") {
+          decrease = Math.floor(Math.random() * 12) + 4;
+        }
+
+        // platinum medium chaos
+        else if (section.name === "PLATINUM") {
+          decrease = Math.floor(Math.random() * 20) + 8;
+        }
+
+        // regular chaos
+        else {
+          decrease = Math.floor(Math.random() * 35) + 12;
+        }
+
+        // occasional spike
+        if (Math.random() < 0.2) {
+          decrease *= 2;
+        }
 
         section.stock = Math.max(0, section.stock - decrease);
       });
-    }, 2500);
+    }, 1200);
   }
 
   return {
