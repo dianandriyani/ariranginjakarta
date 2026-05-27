@@ -16,6 +16,8 @@ onMounted(() => {
 function backHome() {
   sessionStorage.removeItem("queue-access");
 
+  sessionStorage.removeItem("ticket-session");
+
   queue.resetQueue();
 
   auth.fullName = "";
@@ -28,7 +30,7 @@ function backHome() {
 
 <template>
   <div class="min-h-screen bg-slate-950 text-white flex items-center">
-    <UContainer class="max-w-xl">
+    <UContainer class="max-w-xl gap-10">
       <UCard class="rounded-3xl p-10 text-center bg-white/5 border border-white/10">
         <div class="space-y-6">
           <div class="text-6xl">🎉</div>
@@ -53,6 +55,8 @@ function backHome() {
               {{ auth.membershipCode }}
             </div>
           </div>
+
+          <OrderSummary />
 
           <UButton block size="lg" @click="backHome"> Back Home </UButton>
         </div>

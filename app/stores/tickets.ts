@@ -6,13 +6,13 @@ export const useTicketStore = defineStore("tickets", () => {
       name: "VIP PACKAGE",
       price: 4500000,
       stock: 350,
-      benefits: ["Soundcheck Access", "Priority Entry", "VIP Lanyard"],
+      benefits: ["Soundcheck Access", "Priority Entry"],
     },
     {
       name: "PLATINUM",
       price: 3800000,
       stock: 1400,
-      benefits: ["Floor / Tribune Access"],
+      benefits: [],
     },
     {
       name: "CAT 1",
@@ -34,7 +34,15 @@ export const useTicketStore = defineStore("tickets", () => {
     },
   ]);
 
+  const selectedTicket = ref<any>(null);
+  const selectedQuantity = ref(1);
+
   let interval: ReturnType<typeof setInterval> | null = null;
+
+  function selectTicket(section: any, qty = 1) {
+    selectedTicket.value = section;
+    selectedQuantity.value = qty;
+  }
 
   function startStockSimulation() {
     if (interval) return;
@@ -43,15 +51,7 @@ export const useTicketStore = defineStore("tickets", () => {
       sections.value.forEach((section) => {
         if (section.stock <= 0) return;
 
-        let decrease = 0;
-
-        if (section.name === "VIP PACKAGE") {
-          decrease = Math.floor(Math.random() * 6) + 2;
-        } else if (section.name === "PLATINUM") {
-          decrease = Math.floor(Math.random() * 12) + 4;
-        } else {
-          decrease = Math.floor(Math.random() * 18) + 6;
-        }
+        const decrease = Math.floor(Math.random() * 8) + 1;
 
         section.stock = Math.max(0, section.stock - decrease);
       });
@@ -60,6 +60,9 @@ export const useTicketStore = defineStore("tickets", () => {
 
   return {
     sections,
+    selectedTicket,
+    selectedQuantity,
+    selectTicket,
     startStockSimulation,
   };
 });

@@ -55,7 +55,7 @@ const progress = computed(() => {
       <div class="space-y-8">
         <!-- header -->
         <div class="text-center space-y-4">
-          <UBadge color="neutral" variant="soft" size="lg"> LIVE IN CONCERT </UBadge>
+          <UBadge size="lg" variant="soft"> ARIRANG LIVE IN JAKARTA TICKET SELECTION </UBadge>
 
           <div class="space-y-2">
             <h1 class="text-3xl md:text-5xl font-bold tracking-tight">You're in the Queue</h1>

@@ -68,7 +68,7 @@ function handleJoin() {
       <div class="flex flex-col items-center text-center space-y-10">
         <!-- Hero -->
         <div class="space-y-5">
-          <UBadge size="lg" variant="soft"> LIVE TICKET SIMULATOR </UBadge>
+          <UBadge size="lg" variant="soft"> ARIRANG LIVE IN JAKARTA TICKET SELECTION </UBadge>
 
           <h1 class="text-5xl md:text-7xl font-bold tracking-tight">Queue Simulator</h1>
 
